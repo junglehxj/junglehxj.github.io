@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link href="//cdn.staticfile.net/Primer/21.0.7/primer.css" rel="stylesheet" />
-    <link rel="icon" href=""><script>
+    <link rel="icon" href="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"><script>
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
@@ -14,7 +14,7 @@
 <meta property="og:description" content="尝试。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://junglehxj.github.io/post/di-yi-ge-bo-ke-nei-rong.html">
-<meta property="og:image" content="">
+<meta property="og:image" content="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
 <title>第一个博客内容</title>
 
 
@@ -128,7 +128,11 @@ console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n\n","padding:5p
 <script>
 document.getElementById("pathHome").setAttribute("d",IconList["home"]);
 document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
-
+cmButton=document.getElementById("cmButton");
+    span=document.createElement("span");
+    span.setAttribute("class","Counter");
+    span.innerHTML="3";
+    cmButton.appendChild(span);
 function openComments(){
     cm=document.getElementById("comments");
     cmButton=document.getElementById("cmButton");
