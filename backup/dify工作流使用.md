@@ -32,7 +32,4 @@
 这是我自己尝试搭建的工作流，提取HackerNews的Stories。大模型接入的部分没有放在这里，这个工作流看着是很简单的，但自己却花了蛮多时间😑，下次好好努力。
 [HackeNews提取ask.zip](https://github.com/user-attachments/files/15924800/HackeNews.ask.zip)
 
-
-
-
-
+🚩下一篇：[抓取Github Trending每日排行信息](https://blog.xjmunity.com/post/zhua-qu-Github%20Trending-mei-ri-pai-xing-xin-xi.html)
