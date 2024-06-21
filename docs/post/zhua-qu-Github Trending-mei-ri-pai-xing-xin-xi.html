@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark_colorblind" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="//cdn.staticfile.net/Primer/21.0.7/primer.css" rel="stylesheet" />
+    <link rel="icon" href="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="之前经常在不同的博客站信息源上会看到博主每天发布`Github Trending`，也不是很清楚这样做是否能吸引来访问流量。">
+<meta property="og:title" content="抓取Github Trending每日排行信息">
+<meta property="og:description" content="之前经常在不同的博客站信息源上会看到博主每天发布`Github Trending`，也不是很清楚这样做是否能吸引来访问流量。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://junglehxj.github.io/post/zhua-qu-Github%20Trending-mei-ri-pai-xing-xin-xi.html">
+<meta property="og:image" content="https://images.pexels.com/photos/47547/squirrel-animal-cute-rodents-47547.jpeg?auto=compress&cs=tinysrgb&h=650&w=940">
+<title>抓取Github Trending每日排行信息</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">抓取Github Trending每日排行信息</h1>
+<div class="title-right">
+    <a href="https://junglehxj.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/junglehxj/junglehxj.github.io/issues/3" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><p>之前经常在不同的博客站信息源上会看到博主每天发布<code class="notranslate">Github Trending</code>，也不是很清楚这样做是否能吸引来访问流量。最近稍微有空，也会点python，想想看看能不能自己每天抓取这些信息。</p>
+<h2>抓取Github Trending</h2>
+<blockquote>
+<p>访问地址：<a href="https://github.com/trending">https://github.com/trending</a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a" alt="image-20240621221956705" style="max-width: 100%;"></a><br>
+上图所示即是<code class="notranslate">Github Trending</code>的展示情况，首先我网上搜索了下是否有大佬已经做过类似的工作了（脚本或者开源项目），无奈的是并没有找到合适开源方案。思来想去，自己恰好会一点python，并且借助Chat-GPT的能力，应该可以写出我想要的结果。</p>
+</blockquote>
+<h2>Chat-GPT使用</h2>
+<blockquote>
+<p><a href="https://chatgpt.com/" rel="nofollow">https://chatgpt.com/</a><br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935" alt="image-20240621222759997" style="max-width: 100%;"></a><br>
+⛅大模型的应用是近年来的热门，大小公司都推出了自家的大语言模型，但据我的使用体验，还是Chat-GPT最顺手，唯一需要注意的就是科学上网。结合GPT的生成能力，可以很好的辅助我们编码，达到想要的效果。</p>
+</blockquote>
+<p>首先，我直接问出了自己想达到的目标，问法也比较简单：<br>
+<a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/d071ef75-41c7-43e8-8b4b-8e18a0fb3208"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/d071ef75-41c7-43e8-8b4b-8e18a0fb3208" alt="image-20240621223102805" style="max-width: 100%;"></a><br>
+结合GPT给出的答案，我们在打开自己的IDE工具，我这边用<code class="notranslate">pycharm</code>来调试代码，经过自己的微调和异常处理，最后额外将结果导出到json文件。这里我加了一个<code class="notranslate">Frequency</code>来区分每天/每周/每月的<code class="notranslate">Trending</code>情况。</p>
+<div class="highlight highlight-source-python"><pre class="notranslate"><span class="pl-k">from</span> <span class="pl-s1">bs4</span> <span class="pl-k">import</span> <span class="pl-v">BeautifulSoup</span>
+<span class="pl-k">import</span> <span class="pl-s1">requests</span>
+<span class="pl-k">import</span> <span class="pl-s1">json</span>
+<span class="pl-k">from</span> <span class="pl-s1">datetime</span> <span class="pl-k">import</span> <span class="pl-s1">datetime</span>
+<span class="pl-k">import</span> <span class="pl-s1">time</span>
+<span class="pl-k">import</span> <span class="pl-s1">os</span>
+<span class="pl-k">import</span> <span class="pl-s1">logging</span>
+<span class="pl-k">from</span> <span class="pl-s1">openai</span> <span class="pl-k">import</span> <span class="pl-v">OpenAI</span>
+<span class="pl-k">from</span> <span class="pl-s1">fastapi</span> <span class="pl-k">import</span> <span class="pl-v">FastAPI</span>
+<span class="pl-k">from</span> <span class="pl-s1">fastapi</span>.<span class="pl-s1">middleware</span>.<span class="pl-s1">cors</span> <span class="pl-k">import</span> <span class="pl-v">CORSMiddleware</span>
+
+
+<span class="pl-c"># 设置代理</span>
+<span class="pl-s1">os</span>.<span class="pl-s1">environ</span>[<span class="pl-s">"http_proxy"</span>] <span class="pl-c1">=</span> <span class="pl-s">"http://127.0.0.1:7890"</span>
+<span class="pl-s1">os</span>.<span class="pl-s1">environ</span>[<span class="pl-s">"https_proxy"</span>] <span class="pl-c1">=</span> <span class="pl-s">"http://127.0.0.1:7890"</span>
+
+<span class="pl-s1">client</span> <span class="pl-c1">=</span> <span class="pl-v">OpenAI</span>(
+        <span class="pl-s1">api_key</span><span class="pl-c1">=</span><span class="pl-s">"your_api_key"</span>,
+        <span class="pl-s1">base_url</span><span class="pl-c1">=</span><span class="pl-s">"https://api.openai.com/v1"</span>
+    )
+
+<span class="pl-s1">app</span> <span class="pl-c1">=</span> <span class="pl-v">FastAPI</span>()
+
+<span class="pl-v">OPEN_CROSS_DOMAIN</span> <span class="pl-c1">=</span> <span class="pl-c1">True</span>
+<span class="pl-k">if</span> <span class="pl-v">OPEN_CROSS_DOMAIN</span>:
+    <span class="pl-s1">app</span>.<span class="pl-en">add_middleware</span>(
+        <span class="pl-v">CORSMiddleware</span>,
+        <span class="pl-s1">allow_origins</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
+        <span class="pl-s1">allow_credentials</span><span class="pl-c1">=</span><span class="pl-c1">True</span>,
+        <span class="pl-s1">allow_methods</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
+        <span class="pl-s1">allow_headers</span><span class="pl-c1">=</span>[<span class="pl-s">"*"</span>],
+    )
+
+<span class="pl-s1">logger</span> <span class="pl-c1">=</span> <span class="pl-s1">logging</span>.<span class="pl-en">getLogger</span>()
+<span class="pl-s1">logger</span>.<span class="pl-en">setLevel</span>(<span class="pl-s1">logging</span>.<span class="pl-v">INFO</span>)  <span class="pl-c"># 设置打印级别</span>
+<span class="pl-s1">formatter</span> <span class="pl-c1">=</span> <span class="pl-s1">logging</span>.<span class="pl-v">Formatter</span>(<span class="pl-s">'%(asctime)s %(filename)s %(funcName)s [line:%(lineno)d] %(levelname)s %(message)s'</span>)
+
+<span class="pl-c"># 设置屏幕打印的格式</span>
+<span class="pl-s1">sh</span> <span class="pl-c1">=</span> <span class="pl-s1">logging</span>.<span class="pl-v">StreamHandler</span>()
+<span class="pl-s1">sh</span>.<span class="pl-en">setFormatter</span>(<span class="pl-s1">formatter</span>)
+<span class="pl-s1">logger</span>.<span class="pl-en">addHandler</span>(<span class="pl-s1">sh</span>)
+
+<span class="pl-c"># 设置log保存</span>
+<span class="pl-s1">fh</span> <span class="pl-c1">=</span> <span class="pl-s1">logging</span>.<span class="pl-v">FileHandler</span>(<span class="pl-s">"logGithubTrendings.log"</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">'utf8'</span>)
+<span class="pl-s1">fh</span>.<span class="pl-en">setFormatter</span>(<span class="pl-s1">formatter</span>)
+<span class="pl-s1">logger</span>.<span class="pl-en">addHandler</span>(<span class="pl-s1">fh</span>)
+
+
+<span class="pl-k">def</span> <span class="pl-en">get_github_trending</span>(<span class="pl-s1">frequency</span>):
+    <span class="pl-s1">url</span> <span class="pl-c1">=</span> <span class="pl-s">f"https://github.com/trending?since=<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">frequency</span><span class="pl-kos">}</span></span>"</span>
+    <span class="pl-s1">response</span> <span class="pl-c1">=</span> <span class="pl-s1">requests</span>.<span class="pl-en">get</span>(<span class="pl-s1">url</span>)
+    <span class="pl-k">if</span> <span class="pl-s1">response</span>.<span class="pl-s1">status_code</span> <span class="pl-c1">!=</span> <span class="pl-c1">200</span>:
+        <span class="pl-s1">logger</span>.<span class="pl-en">error</span>(<span class="pl-s">"error: [请求调用失败]-[{}]"</span>.<span class="pl-en">format</span>(<span class="pl-s1">url</span>))
+        <span class="pl-k">return</span> []
+
+    <span class="pl-s1">soup</span> <span class="pl-c1">=</span> <span class="pl-v">BeautifulSoup</span>(<span class="pl-s1">response</span>.<span class="pl-s1">content</span>, <span class="pl-s">'html.parser'</span>)
+    <span class="pl-s1">repo_list</span> <span class="pl-c1">=</span> []
+
+    <span class="pl-k">for</span> <span class="pl-s1">index</span>, <span class="pl-s1">repo</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">soup</span>.<span class="pl-en">find_all</span>(<span class="pl-s">'article'</span>, <span class="pl-s1">class_</span><span class="pl-c1">=</span><span class="pl-s">'Box-row'</span>)):
+        <span class="pl-k">try</span>:
+            <span class="pl-s1">repo_name</span> <span class="pl-c1">=</span> <span class="pl-s">"/"</span>.<span class="pl-en">join</span>(<span class="pl-s1">part</span>.<span class="pl-en">strip</span>() <span class="pl-k">for</span> <span class="pl-s1">part</span> <span class="pl-c1">in</span> <span class="pl-s1">repo</span>.<span class="pl-s1">h2</span>.<span class="pl-s1">a</span>.<span class="pl-s1">text</span>.<span class="pl-en">strip</span>().<span class="pl-en">replace</span>(<span class="pl-s">'<span class="pl-cce">\n</span>'</span>, <span class="pl-s">' '</span>).<span class="pl-en">split</span>(<span class="pl-s">"/"</span>))
+            <span class="pl-s1">repo_url</span> <span class="pl-c1">=</span> <span class="pl-s">f"https://github.com<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">repo</span>.<span class="pl-s1">h2</span>.<span class="pl-s1">a</span>.<span class="pl-en">get</span>(<span class="pl-s">'href'</span>)<span class="pl-kos">}</span></span>"</span>
+            <span class="pl-s1">repo_description_tag</span> <span class="pl-c1">=</span> <span class="pl-s1">repo</span>.<span class="pl-en">find</span>(<span class="pl-s">'p'</span>, <span class="pl-s1">class_</span><span class="pl-c1">=</span><span class="pl-s">'col-9 color-fg-muted my-1 pr-4'</span>)
+            <span class="pl-s1">repo_description</span> <span class="pl-c1">=</span> <span class="pl-s1">repo_description_tag</span>.<span class="pl-s1">text</span>.<span class="pl-en">strip</span>() <span class="pl-k">if</span> <span class="pl-s1">repo_description_tag</span> <span class="pl-k">else</span> <span class="pl-s">'No description'</span>
+            <span class="pl-s1">repo_code_language</span> <span class="pl-c1">=</span> <span class="pl-s1">repo</span>.<span class="pl-en">find</span>(<span class="pl-s">'span'</span>, <span class="pl-s1">class_</span><span class="pl-c1">=</span><span class="pl-s">'d-inline-block ml-0 mr-3'</span>)
+            <span class="pl-s1">repo_code_language</span> <span class="pl-c1">=</span> <span class="pl-s1">repo_code_language</span>.<span class="pl-s1">text</span>.<span class="pl-en">strip</span>() <span class="pl-k">if</span> <span class="pl-s1">repo_code_language</span> <span class="pl-k">else</span> <span class="pl-s">'No code language'</span>
+            <span class="pl-s1">repo_stars</span> <span class="pl-c1">=</span> <span class="pl-s1">repo</span>.<span class="pl-en">find</span>(<span class="pl-s">'span'</span>, <span class="pl-s1">class_</span><span class="pl-c1">=</span><span class="pl-s">'d-inline-block float-sm-right'</span>)
+            <span class="pl-s1">repo_stars</span> <span class="pl-c1">=</span> <span class="pl-s1">repo_stars</span>.<span class="pl-s1">text</span>.<span class="pl-en">strip</span>().<span class="pl-en">split</span>(<span class="pl-s">" "</span>)[<span class="pl-c1">0</span>] <span class="pl-k">if</span> <span class="pl-s1">repo_stars</span> <span class="pl-k">else</span> <span class="pl-s">'No code language'</span>
+
+            <span class="pl-s1">repo_list</span>.<span class="pl-en">append</span>({
+                <span class="pl-s">'name'</span>: <span class="pl-s1">repo_name</span>,
+                <span class="pl-s">'url'</span>: <span class="pl-s1">repo_url</span>,
+                <span class="pl-s">'description'</span>: <span class="pl-s1">repo_description</span>,
+                <span class="pl-c"># 'description': summaryText(repo_description),</span>
+                <span class="pl-s">"language"</span>: <span class="pl-s1">repo_code_language</span>,
+                <span class="pl-s">"stars"</span>: <span class="pl-en">int</span>(<span class="pl-s1">repo_stars</span>.<span class="pl-en">replace</span>(<span class="pl-s">','</span>, <span class="pl-s">''</span>))
+            })
+
+            <span class="pl-c"># time.sleep(1)</span>
+        <span class="pl-k">except</span> <span class="pl-v">Exception</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
+            <span class="pl-s1">logger</span>.<span class="pl-en">error</span>(<span class="pl-s">"error: [Frequency]-[{}] [Repo order]-[{}] 解析失败"</span>.<span class="pl-en">format</span>(<span class="pl-s1">frequency</span>, <span class="pl-s1">index</span>))
+            <span class="pl-s1">logger</span>.<span class="pl-en">error</span>(<span class="pl-s">"error: {}"</span>.<span class="pl-en">format</span>(<span class="pl-s1">e</span>))
+
+    <span class="pl-s1">logger</span>.<span class="pl-en">info</span>(<span class="pl-s">"[frequency]-[{}] has already finished! "</span>.<span class="pl-en">format</span>(<span class="pl-s1">frequency</span>))
+    <span class="pl-k">return</span> <span class="pl-s1">repo_list</span>
+
+
+<span class="pl-c"># 英文 -- 译 --&gt; 中文</span>
+<span class="pl-k">def</span> <span class="pl-en">summaryText</span>(<span class="pl-s1">content</span>: <span class="pl-s1">str</span>):
+    <span class="pl-k">try</span>:
+        <span class="pl-s1">completion</span> <span class="pl-c1">=</span> <span class="pl-s1">client</span>.<span class="pl-s1">chat</span>.<span class="pl-s1">completions</span>.<span class="pl-en">create</span>(
+            <span class="pl-s1">model</span><span class="pl-c1">=</span><span class="pl-s">"gpt-4o"</span>,
+            <span class="pl-s1">messages</span><span class="pl-c1">=</span>[
+                {
+                    <span class="pl-s">"role"</span>: <span class="pl-s">"user"</span>,
+                    <span class="pl-s">"content"</span>: <span class="pl-s">"请你作为专业的自身翻译家，请将下面的内容翻译为中文：<span class="pl-cce">\n</span>"</span> <span class="pl-c1">+</span> <span class="pl-s1">content</span>,
+                }
+            ]
+        )
+        <span class="pl-k">return</span> <span class="pl-s1">completion</span>.<span class="pl-s1">choices</span>[<span class="pl-c1">0</span>].<span class="pl-s1">message</span>.<span class="pl-s1">content</span>
+    <span class="pl-k">except</span> <span class="pl-v">Exception</span> <span class="pl-k">as</span> <span class="pl-s1">e</span>:
+        <span class="pl-s1">logger</span>.<span class="pl-en">error</span>(<span class="pl-s">"error: {}"</span>.<span class="pl-en">format</span>(<span class="pl-s1">e</span>))
+        <span class="pl-k">return</span> <span class="pl-s">"调用大模型翻译失败！"</span>
+
+
+<span class="pl-k">def</span> <span class="pl-en">main</span>(<span class="pl-s1">frequency</span>):
+    <span class="pl-s1">trending_repos</span> <span class="pl-c1">=</span> <span class="pl-en">get_github_trending</span>(<span class="pl-s1">frequency</span>)
+    <span class="pl-k">if</span> <span class="pl-c1">not</span> <span class="pl-s1">trending_repos</span>:
+        <span class="pl-en">print</span>(<span class="pl-s">"No trending repositories found"</span>)
+        <span class="pl-s1">logger</span>.<span class="pl-en">error</span>(<span class="pl-s">"error: [Frequency]-[{}] No trending repositories found"</span>.<span class="pl-en">format</span>(<span class="pl-s1">frequency</span>))
+        <span class="pl-k">return</span>
+
+    <span class="pl-c"># 按stars排序</span>
+    <span class="pl-s1">trending_repos</span> <span class="pl-c1">=</span> <span class="pl-en">sorted</span>(<span class="pl-s1">trending_repos</span>, <span class="pl-s1">key</span><span class="pl-c1">=</span><span class="pl-k">lambda</span> <span class="pl-s1">x</span>: <span class="pl-s1">x</span>[<span class="pl-s">"stars"</span>], <span class="pl-s1">reverse</span><span class="pl-c1">=</span><span class="pl-c1">True</span>)
+
+    <span class="pl-c"># 生成文件. 获取当前日期并格式化为字符串</span>
+    <span class="pl-s1">current_time</span> <span class="pl-c1">=</span> <span class="pl-s1">datetime</span>.<span class="pl-en">now</span>().<span class="pl-en">strftime</span>(<span class="pl-s">"%Y-%m-%d_%H-%M-%S"</span>)
+    <span class="pl-s1">file_name</span> <span class="pl-c1">=</span> <span class="pl-s">f"GithubTrending_<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">frequency</span><span class="pl-kos">}</span></span>_<span class="pl-s1"><span class="pl-kos">{</span><span class="pl-s1">current_time</span><span class="pl-kos">}</span></span>.json"</span>
+    <span class="pl-k">with</span> <span class="pl-en">open</span>(<span class="pl-s1">file_name</span>, <span class="pl-s">'w'</span>, <span class="pl-s1">encoding</span><span class="pl-c1">=</span><span class="pl-s">'utf-8'</span>) <span class="pl-k">as</span> <span class="pl-s1">json_file</span>:
+        <span class="pl-s1">json</span>.<span class="pl-en">dump</span>(<span class="pl-s1">trending_repos</span>, <span class="pl-s1">json_file</span>, <span class="pl-s1">ensure_ascii</span><span class="pl-c1">=</span><span class="pl-c1">False</span>, <span class="pl-s1">indent</span><span class="pl-c1">=</span><span class="pl-c1">4</span>)
+
+    <span class="pl-s1">logger</span>.<span class="pl-en">info</span>(<span class="pl-s">"Handled - [Frequency]-[{}] has already finished! <span class="pl-cce">\n</span>"</span>.<span class="pl-en">format</span>(<span class="pl-s1">frequency</span>))
+
+
+<span class="pl-k">if</span> <span class="pl-s1">__name__</span> <span class="pl-c1">==</span> <span class="pl-s">"__main__"</span>:
+    <span class="pl-s1">frequencies</span> <span class="pl-c1">=</span> [<span class="pl-s">"daily"</span>, <span class="pl-s">"weekly"</span>, <span class="pl-s">"monthly"</span>]
+    <span class="pl-k">for</span> <span class="pl-s1">index</span>, <span class="pl-s1">frequency</span> <span class="pl-c1">in</span> <span class="pl-en">enumerate</span>(<span class="pl-s1">frequencies</span>):
+        <span class="pl-en">main</span>(<span class="pl-s1">frequency</span>)</pre></div>
+<p>上面的代码中额外加入了大模型进行翻译，并且引入了FastAPI，便于以后直接做成一个接口使用。之后计划搞个服务器或者某种自动化的方式🤔，每天同步一份当日<code class="notranslate">Trending</code>在github或其他平台。<br>
+<a href="https://github.com/user-attachments/files/15929325/githubTrending.zip">githubTrending.zip</a></p></div>
+<div style="font-size:small;margin-top:8px;float:right;">❤️ 转载文章请注明出处，谢谢！❤️</div>
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+</div>
+    <div id="footer">Copyright © <span id="year"></span><a href="https://junglehxj.github.io"> Jungle Blog </a>
+<p>
+<span id="runday"></span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a>
+</p>
+
+<script>
+if("06/15/2024"!=""){
+    var now=new Date();
+    var startSite=new Date("06/15/2024");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("year").innerHTML=now.getFullYear();
+    if(""!=""){document.getElementById("runday").innerHTML=" • "+"网站运行"+diffDay+"天"+" • ";}
+    else{document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";}
+}
+</script>
+</div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n\n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","junglehxj/junglehxj.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+</script>
+
+
+</html>
