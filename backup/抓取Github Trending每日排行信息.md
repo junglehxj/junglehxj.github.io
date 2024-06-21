@@ -148,3 +148,5 @@ if __name__ == "__main__":
 ```
 上面的代码中额外加入了大模型进行翻译，并且引入了FastAPI，便于以后直接做成一个接口使用。之后计划搞个服务器或者某种自动化的方式🤔，每天同步一份当日`Trending`在github或其他平台。
 [githubTrending.zip](https://github.com/user-attachments/files/15929325/githubTrending.zip)
+
+上一篇：[dify工作流使用](https://blog.xjmunity.com/post/dify-gong-zuo-liu-shi-yong.html)
