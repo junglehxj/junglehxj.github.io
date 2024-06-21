@@ -2,11 +2,13 @@
 
 ## 抓取Github Trending
 > 访问地址：https://github.com/trending
+
 ![image-20240621221956705](https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a)
 上图所示即是`Github Trending`的展示情况，首先我网上搜索了下是否有大佬已经做过类似的工作了（脚本或者开源项目），无奈的是并没有找到合适开源方案。思来想去，自己恰好会一点python，并且借助Chat-GPT的能力，应该可以写出我想要的结果。
 
 ## Chat-GPT使用
 > https://chatgpt.com/
+
 ![image-20240621222759997](https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935)
 ⛅大模型的应用是近年来的热门，大小公司都推出了自家的大语言模型，但据我的使用体验，还是Chat-GPT最顺手，唯一需要注意的就是科学上网。结合GPT的生成能力，可以很好的辅助我们编码，达到想要的效果。
 

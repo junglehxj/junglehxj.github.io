@@ -73,16 +73,16 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 <div class="markdown-body" id="postBody"><p>之前经常在不同的博客站信息源上会看到博主每天发布<code class="notranslate">Github Trending</code>，也不是很清楚这样做是否能吸引来访问流量。最近稍微有空，也会点python，想想看看能不能自己每天抓取这些信息。</p>
 <h2>抓取Github Trending</h2>
 <blockquote>
-<p>访问地址：<a href="https://github.com/trending">https://github.com/trending</a><br>
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a" alt="image-20240621221956705" style="max-width: 100%;"></a><br>
-上图所示即是<code class="notranslate">Github Trending</code>的展示情况，首先我网上搜索了下是否有大佬已经做过类似的工作了（脚本或者开源项目），无奈的是并没有找到合适开源方案。思来想去，自己恰好会一点python，并且借助Chat-GPT的能力，应该可以写出我想要的结果。</p>
+<p>访问地址：<a href="https://github.com/trending">https://github.com/trending</a></p>
 </blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/abdb1db6-35a3-4a50-9b27-1d189b37f59a" alt="image-20240621221956705" style="max-width: 100%;"></a><br>
+上图所示即是<code class="notranslate">Github Trending</code>的展示情况，首先我网上搜索了下是否有大佬已经做过类似的工作了（脚本或者开源项目），无奈的是并没有找到合适开源方案。思来想去，自己恰好会一点python，并且借助Chat-GPT的能力，应该可以写出我想要的结果。</p>
 <h2>Chat-GPT使用</h2>
 <blockquote>
-<p><a href="https://chatgpt.com/" rel="nofollow">https://chatgpt.com/</a><br>
-<a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935" alt="image-20240621222759997" style="max-width: 100%;"></a><br>
-⛅大模型的应用是近年来的热门，大小公司都推出了自家的大语言模型，但据我的使用体验，还是Chat-GPT最顺手，唯一需要注意的就是科学上网。结合GPT的生成能力，可以很好的辅助我们编码，达到想要的效果。</p>
+<p><a href="https://chatgpt.com/" rel="nofollow">https://chatgpt.com/</a></p>
 </blockquote>
+<p><a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/e68c8fb5-71b1-4839-9520-57a27e55e935" alt="image-20240621222759997" style="max-width: 100%;"></a><br>
+⛅大模型的应用是近年来的热门，大小公司都推出了自家的大语言模型，但据我的使用体验，还是Chat-GPT最顺手，唯一需要注意的就是科学上网。结合GPT的生成能力，可以很好的辅助我们编码，达到想要的效果。</p>
 <p>首先，我直接问出了自己想达到的目标，问法也比较简单：<br>
 <a target="_blank" rel="noopener noreferrer" href="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/d071ef75-41c7-43e8-8b4b-8e18a0fb3208"><img src="https://github.com/junglehxj/junglehxj.github.io/assets/38659409/d071ef75-41c7-43e8-8b4b-8e18a0fb3208" alt="image-20240621223102805" style="max-width: 100%;"></a><br>
 结合GPT给出的答案，我们在打开自己的IDE工具，我这边用<code class="notranslate">pycharm</code>来调试代码，经过自己的微调和异常处理，最后额外将结果导出到json文件。这里我加了一个<code class="notranslate">Frequency</code>来区分每天/每周/每月的<code class="notranslate">Trending</code>情况。</p>
