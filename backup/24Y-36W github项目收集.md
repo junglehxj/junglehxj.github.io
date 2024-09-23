@@ -82,3 +82,5 @@
 🔗 https://github.com/doersino/aerialbot/tree/master
 🧑‍💻 doersino ⭐ 218
 🔖 可以随机生成一些国家/城市的俯瞰图。
+
+🚩下一篇：[24Y-37W github项目收集](https://blog.xjmunity.com/post/24Y-37W%20github-xiang-mu-shou-ji.html)
