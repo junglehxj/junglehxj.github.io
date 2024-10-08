@@ -90,4 +90,5 @@
 🧑‍💻 pwxcoo ✨ 10851
 🔖 做一个在线题库，在线训练。
 
+🚏上一篇：[24Y-37W github项目收集](https://blog.xjmunity.com/post/24Y-37W%20github-xiang-mu-shou-ji.html)
 🚩下一篇：[24Y-39W github项目收集](https://blog.xjmunity.com/post/24Y-39W%20github-xiang-mu-shou-ji.html)
